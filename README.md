@@ -1,16 +1,13 @@
 # steam-dmenu
 
-Reads installed Steam games from one or multiple Steam libraries and offers a selection in dmenu compatible format.
+I don't like having python installed so this has been ported to a semi-posix compliant shell script (requires xdg-open and sed)
+the diffrance between this and the original script is that this can be used to export/import a minimal version of the steam game manifest(which you can modify in case you don't wan't tools/ proton showing up)
 
-## Requirements
-- Steam (obviously)
-- python 3
-- xdg-open
-- some dmenu compatible application (dmenu, rofi, bemenu, wofi...)
+### Simple usage example:
 
-## Configuration
-While dmenu is the default, any compatible alternative or additional parameters for dmenu can be used with the `--dmenu` (`-d`) flag.
-The Steam library is assumed to be in `~/.local/share/Steam`, however the `--library` (`-l`) flag takes any number of alternative library locations.
+`steam_dmenu.sh -d 'bemenu -i'`
 
-### Example with rofi and 2 library locations
-`steam_dmenu.py -d 'rofi -dmenu -i' -l '~/.local/share/Steam' '~/Games/Steam'`
+### Using exported game manifest
+
+`steam_dmenu.sh -o > games`
+`cat games | steam_dmenu.sh -d 'bemenu -i'`
