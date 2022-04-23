@@ -34,5 +34,5 @@ nam="`echo "$line"|tr '\n\t' ' '|sed 's/.*"name"[^"]*"\([^"]*\).*/\1/'|tr ' ' '_
 set -- "$@" "$nam" "`echo "$line"|tr '\n\t' ' '|sed 's/.*"appid"[^"]*"\([^"]*\).*/\1/'`" 
 done
 test $pkill -eq 1 && printf "$printfmt" "$@" && exit
-run=`printf "$printfmt" "$@" | $run | cut -d: -f2`
+run=`printf "$printfmt" "$@" | $run | sed 's/.*:\(.*\)/\1/'`
 test -n "$run" && xdg-open "steam://run/$run"
