@@ -27,7 +27,7 @@ launch_menu () {
   test $? -ne 0 && test $# -eq 0 && printfmt='%s\n' && set -- "$@" "`cat`"
   test $# -eq 0 && for arg in ${path}appmanifest_*.acf; do
     line="`cat $arg`";
-    nam="`echo "$line"|tr '\n\t' ' '|sed 's/.*"name"[^"]*"\([^"]*\).*/\1/'|tr ' ' '_'`"
+    nam="`echo "$line"|tr '\n\t' ' '|sed 's/.*"name"[^"]*"\([^"]*\).*/\1/'`"
     set -- "$@" "$nam" "`echo "$line"|tr '\n\t' ' '|sed 's/.*"appid"[^"]*"\([^"]*\).*/\1/'`" 
   done
   test $pkill -eq 1 && printf "$printfmt" "$@" && exit
@@ -35,4 +35,4 @@ launch_menu () {
   test -n "$run" && xdg-open "steam://run/$run"
 }
 
-launch_menu -o | sort | grep -v 'Proton\|Runtime\|SDK\|SteamVR\|Steamworks' | launch_menu
+launch_menu -o | grep -v 'Proton\|Runtime\|SDK\|SteamVR\|Steamworks' | launch_menu
